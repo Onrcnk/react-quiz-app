@@ -6,8 +6,17 @@ import Question from "./Question";
 export default function Main() {
   const dispatch = useDispatch();
   const reducerQuestions = useSelector((state) => state.questions);
-  const questions = reducerQuestions.map((results) => results.question);
-  
+  const questions = reducerQuestions;
+  const answers =  reducerQuestions.map((results) => results.incorrect_answers);
+  const correctAnswers =  reducerQuestions.map((results) => results.correct_answer);
+
+  console.log(questions)
+
+  for(let i = 0; i < correctAnswers.length; i++){
+    answers[i].push(correctAnswers[i])
+    answers[i].sort()
+  }
+ 
 
   const [pageCondition, setPageCondition] = React.useState(true)
 
@@ -17,15 +26,14 @@ export default function Main() {
       .then((data) => {
         dispatch(setQuestionAction(data.results));
       });
-    handleChange()  
+    handleChange() 
+
   };
-  
+
 
   function handleChange(){
     setPageCondition(pageCondition => !pageCondition)
   }
-
-  console.log(questions)
 
   function Intro() {
     return (
@@ -42,7 +50,10 @@ export default function Main() {
   }
 
   function BringQuestions(props) {
-    return <Question questions={questions} />;
+    return <Question 
+    questions={questions}
+    answers = {answers}
+    correctAnswer = {correctAnswers} />;
   }
 
   function ConditonalRender(props) {

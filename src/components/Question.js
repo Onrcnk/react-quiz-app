@@ -1,13 +1,27 @@
 import React from "react";
 
-export default function Question(props) {
-  const a = props.questions.map((question) => {
-    return <h1>{question}</h1>;
-  });
+export default function Question({questions, answers}) {
 
-  return (
-    <div>
-        {a}
-    </div>
-  );
+    const qAndA = () =>{
+        return(
+            <div>
+            {questions.map((question, index) => (
+            <div>
+                <h1>{index + 1}.{question.question}</h1>
+                <h1>{answers[index]}</h1>
+            </div>
+        ))}
+        </div>
+        )
+    }
+
+
+
+    return(
+
+        <div>{qAndA()}</div>
+    )
+
+    
+
 }
