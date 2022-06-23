@@ -3,10 +3,10 @@
 }
 
 body {
-  background-color: aliceblue;
+  background-color: darkblue;
 }
 
-.intro-position {
+.main-position {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,4 +32,37 @@ body {
   border-width: 0px;
 }
 
+.answer-position{
+    
+    display: grid;
+    grid-gap: 5px;
+    margin-left: 10px;
+  
 
+}
+
+.answer-button{
+
+    color: darkblue;
+    background-color: cyan;
+    border-radius: 10px;
+    border-color: darkblue;
+    border-width: 2px ;
+}
+
+.qAndA-table{
+    padding: 30px;
+    width: 900px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50px;
+    
+}
+
+.main-position{
+    align-content: center;
+    justify-content: center;
+}

@@ -6,7 +6,7 @@ import { store } from "./Redux/store";
 export default function App() {
   return (
     <Provider store={store}>
-      <div>
+      <div className="main-position">
         <Main />
       </div>
     </Provider>

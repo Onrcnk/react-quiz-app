@@ -1,33 +1,22 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setQuestionAction } from "../Redux/Actions/questionsActions";
 import Question from "./Question";
 
 export default function Main() {
+
   const dispatch = useDispatch();
-  const reducerQuestions = useSelector((state) => state.questions);
-  const questions = reducerQuestions;
-  const answers =  reducerQuestions.map((results) => results.incorrect_answers);
-  const correctAnswers =  reducerQuestions.map((results) => results.correct_answer);
 
-  console.log(questions)
-
-  for(let i = 0; i < correctAnswers.length; i++){
-    answers[i].push(correctAnswers[i])
-    answers[i].sort()
-  }
- 
 
   const [pageCondition, setPageCondition] = React.useState(true)
 
   const takeQuestions = () => {
-    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+    fetch("https://the-trivia-api.com/api/questions?limit=1")
       .then((res) => res.json())
       .then((data) => {
-        dispatch(setQuestionAction(data.results));
+        dispatch(setQuestionAction(data));
       });
     handleChange() 
-
   };
 
 
@@ -50,10 +39,7 @@ export default function Main() {
   }
 
   function BringQuestions(props) {
-    return <Question 
-    questions={questions}
-    answers = {answers}
-    correctAnswer = {correctAnswers} />;
+    return <Question />;
   }
 
   function ConditonalRender(props) {
