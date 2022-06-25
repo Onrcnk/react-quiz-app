@@ -66,3 +66,19 @@ body {
     align-content: center;
     justify-content: center;
 }
+
+.next-button{
+    width: 100px;
+    height: 30px;
+    margin-top: 20px;
+    position: absolute;
+    left: 500px;
+    border-radius: 10px;
+    background-color: darkblue;
+    color: white;
+    
+    }
+
+.myList{
+  background-color: #4d5b9e;
+}
