@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuestionAction } from '../Redux/Actions/questionsActions';
+import Confetti from 'react-confetti';
 
 export default function Question() {
-  const [count, setCount] = React.useState(1);
+  const [count, setCount] = React.useState(0);
 
   const [correctAnswerCount, setCorrectAnswerCount] = React.useState(0);
 
@@ -22,6 +23,7 @@ export default function Question() {
 
   React.useEffect(() => {
     if (!!answers) {
+      setCount(count + 1);
       setNewAnswers([...answers, correctAnswer].sort());
     }
   }, [reducerQuestions]);
@@ -29,13 +31,12 @@ export default function Question() {
   const handleChange = () => {
     !!eventTarget && (eventTarget.style.backgroundColor = 'cyan');
 
-    fetch('https://the-trivia-api.com/api/questions?limit=1')
+    fetch('https://the-trivia-api.com/api/questions?categories=general_knowledge,film_and_tv&limit=1&difficulty=medium')
       .then(res => res.json())
       .then(data => {
         dispatch(setQuestionAction(data));
       });
     setIsClick(false);
-    setCount(count + 1)
   };
 
   function handleAnswer(event, answer) {
@@ -51,27 +52,54 @@ export default function Question() {
     setIsClick(true);
   }
 
+  function restart() {
+    setCount(1);
+    setCorrectAnswerCount(0);
+  }
+
   function Finish() {
     return (
       <div>
-        <h1>Correct Answer = {correctAnswerCount} / 5</h1>
+        <h1 className='outro-position'>Correct Answer = {correctAnswerCount} / 5</h1>
+        <button className='intro-button' onClick={restart}>
+          RESTART
+        </button>
       </div>
     );
   }
 
+  const Question = props => {
+    const a = (
+      <h1>
+        {count}. {props.question}
+      </h1>
+    );
+
+    return a;
+  };
+
   const qAndA = () => {
-    if (count === 6) {
+    if (count >= 6) {
+      if ( correctAnswerCount  >= 3) {
+        console.log(correctAnswerCount)
+        return (
+          <div>
+            <Confetti 
+            className="confetti"/>
+            <Finish />
+          </div>
+        );
+      }else{
       return <Finish />;
+      }
     }
 
     return (
       <div>
         <div className='qAndA-table'>
-          {questions.map((question, index) => (
+          {questions.map(question => (
             <div>
-              <h1>
-                {count}. {question.question}
-              </h1>
+              <Question question={question.question} />
               <div className='answer-position'>
                 {newAnswers.map(answer => (
                   <button

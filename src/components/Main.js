@@ -9,7 +9,7 @@ export default function Main() {
   const [pageCondition, setPageCondition] = React.useState(true);
 
   const takeQuestions = () => {
-    fetch('https://the-trivia-api.com/api/questions?limit=1')
+    fetch('https://the-trivia-api.com/api/questions?categories=general_knowledge,film_and_tv&limit=1&difficulty=medium')
       .then(res => res.json())
       .then(data => {
         dispatch(setQuestionAction(data));
@@ -21,17 +21,16 @@ export default function Main() {
     setPageCondition(pageCondition => !pageCondition);
   }
 
-  
   function Intro() {
     return (
-      <div className='intro-position'>
-        <h1 className='title'>Do it your BEST !</h1>
-        <button onClick={takeQuestions}>Click Me Baby One More Time</button>
+      <div>
+        <h1 className='intro-position'>Let's Start!</h1>
+        <button className="intro-button" onClick={takeQuestions}>Click Me Baby One More Time</button>
       </div>
     );
   }
 
-  function BringQuestions(props) {
+  function BringQuestions() {
     return <Question />;
   }
 
